@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع شدات لعبة بابجي</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #3498db; /* خلفية زرقاء */
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 90%;
+            max-width: 300px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #2980b9;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            width: 90%;
+            max-width: 300px;
+        }
+
+        button:hover {
+            background-color: #1abc9c;
+        }
+
+        #loadingMessage {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        @media screen and (min-width: 600px) {
+            body {
+                padding: 50px;
+            }
+
+            input, button {
+                width: 60%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="welcome" style="display: none;">
+        <h1>مرحبًا بك في موقع شدات لعبة بابجي</h1>
+        <label for="name">اكتب اسمك:</label>
+        <input type="text" id="name" placeholder="اسمك">
+        <button onclick="nextStep()">التالي</button>
+    </div>
+
+    <div id="amount" style="display: none;">
+        <h1>اكتب عدد الشدات التي تريد تحويلها إلى حسابك</h1>
+        <label for="shadats">عدد الشدات:</label>
+        <input type="number" id="shadats" placeholder="عدد الشدات">
+        <button onclick="enterId()">التالي</button>
+    </div>
+
+    <div id="idInput" style="display: none;">
+        <h1>قم بكتابة إيدي حسابك في بابجي:</h1>
+        <input type="text" id="userId" placeholder="ID حسابك">
+        <button onclick="startLoading()">بدء</button>
+    </div>
+
+    <div id="loading" style="display: none;">
+        <h1>جارٍ تحويل الشدات...</h1>
+        <p id="loadingMessage"></p>
+    </div>
+
+    <div id="finalMessage" style="display: none;">
+        <h1>تم تحويل الشدات بنجاح!</h1>
+        <button onclick="showScamMessage()">التالي</button>
+    </div>
+
+    <div id="scamMessage" style="display: none;">
+        <h1>تم اختراق حسابكم! تم النصب عليكم.</h1>
+    </div>
+
+    <script>
+        document.getElementById('welcome').style.display = 'block';
+
+        function nextStep() {
+            const name = document.getElementById('name').value;
+            if (name) {
+                document.getElementById('welcome').style.display = 'none';
+                document.getElementById('amount').style.display = 'block';
+            } else {
+                alert('يرجى إدخال اسمك.');
+            }
+        }
+
+        function enterId() {
+            const shadats = document.getElementById('shadats').value;
+            if (shadats > 0) {
+                document.getElementById('amount').style.display = 'none';
+                document.getElementById('idInput').style.display = 'block';
+            } else {
+                alert('يرجى إدخال عدد صحيح من الشدات.');
+            }
+        }
+
+        function startLoading() {
+            const userId = document.getElementById('userId').value;
+            if (userId) {
+                document.getElementById('idInput').style.display = 'none';
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('loadingMessage').textContent = 'جارٍ تحميل الشدات...';
+
+                setTimeout(() => {
+                    document.getElementById('loadingMessage').textContent = 'تم تحويل الشدات بنجاح!';
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('finalMessage').style.display = 'block';
+                }, 10000); // تحميل لمدة 10 ثوانٍ
+            } else {
+                alert('يرجى إدخال ID حسابك.');
+            }
+        }
+
+        function showScamMessage() {
+            document.getElementById('finalMessage').style.display = 'none';
+            document.getElementById('scamMessage').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
